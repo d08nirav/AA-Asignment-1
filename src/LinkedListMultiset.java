@@ -57,7 +57,7 @@ public class LinkedListMultiset<T> extends Multiset<T>
 	public void print(PrintStream out) {
             Node Temp = Head;
             for(;Temp != null;Temp = Temp.prv){
-                out.println(Temp.data);
+                out.println(Temp.data+""+printDelim);
             }
             
 		// Implement me!
