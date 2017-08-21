@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 
 /**
@@ -135,7 +134,7 @@ public class MultisetTester
 		Multiset<String> multiset = null;
 		switch(implementationType) {
 			case "linkedlist":
-				multiset = new LinkedListMultiset<String>();
+				multiset = new LinkedListMultiset_int<String>();
 				break;
 			case "sortedlinkedlist":
 				multiset = new SortedLinkedListMultiset<String>();

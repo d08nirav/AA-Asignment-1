@@ -1,15 +1,8 @@
 import java.io.PrintStream;
 
-public class LinkedListMultiset<T> extends Multiset<T>
+public class LinkedListMultiset_int<T> extends Multiset<T>
 {
 
-    private Node find (T item){
-        Node Temp = Head;
-        for(;Temp != null;Temp = Temp.prv)
-                if (Temp.data.equals(item))
-                    return Temp;
-        return new Node(null, null, null);
-    }
     private void delete(Node Temp) {        
         // When the node to be deleted is the last node
         if (Temp == Head){
@@ -33,20 +26,18 @@ public class LinkedListMultiset<T> extends Multiset<T>
     //The structure of the linkedlist
     private static class Node<T>{
         protected T data;
-        protected int qnty;
         protected Node<T> nxt;
         protected Node<T> prv;
         
         protected Node (T data, Node<T> nxt, Node<T> prv)
         {
-            qnty =1;
             this.data = data;
             this.nxt = nxt;
             this.prv = prv;
         }
     }
     Node Head;
-	public LinkedListMultiset() {
+	public LinkedListMultiset_int() {
             Head = null;
 	} // end of LinkedListMultiset()
 	        
@@ -55,9 +46,6 @@ public class LinkedListMultiset<T> extends Multiset<T>
             if (Head==null)
                 Head = new Node(item, null, null);
             // If the Linklist already consist of data
-            Node T = find(item);
-            if (T.data!=null)
-                T.qnty++;
             else {
                 Node Temp = new Node(item, null, Head);
                 Head.nxt = Temp;
@@ -66,32 +54,53 @@ public class LinkedListMultiset<T> extends Multiset<T>
 	} // end of add()
 		
 	public int search(T item) {
-            Node Temp = find(item);
-            int count =0;
-            if (Temp.data != null)
-                count = Temp.qnty;
+            Node Temp = Head;
+            int count = 0;
+            for(;Temp != null;Temp = Temp.prv)
+                if (Temp.data.equals(item))
+                    count++;
+            //System.out.println(count);
             return count;
 	} // end of add()
 		
 	public void removeOne(T item) {
-            Node Temp = find(item);
-            if (Temp.data != null){
-                if (Temp.qnty == 0)
-                    delete(Temp);
-                else
-                    Temp.qnty--;
+            Node Temp = Head;
+            for(;Temp != null;Temp = Temp.prv){
+                if (Temp.data.equals(item)){
+                    delete (Temp);
+                    break;  //To delete only once.
+                }                    
             }
 	} // end of removeOne()
 		
 	public void removeAll(T item) {
-            Node Temp = find(item);
-            if (Temp.data != null)                
-                delete(Temp);
+            Node Temp = Head;
+            for(;Temp != null;Temp = Temp.prv)
+                if (Temp.data.equals(item))
+                    delete (Temp);
 	} // end of removeAll()	
 	
-	public void print(PrintStream out) {            
-            for(Node Temp = Head;Temp != null;Temp = Temp.prv)                
-                    out.println(Temp.data+""+printDelim+""+Temp.qnty);
+	public void print(PrintStream out) {
+            Node Temp = Head;
+            String[] data = new String[50];
+            int length = 0;
+            Boolean Flg = false;//True if it exists in the array.//false if it does not exist in array
+            for(;Temp != null;Temp = Temp.prv){
+                Flg = false;
+                //check for item in array
+                for (int i=0;i<length;i++){
+                    if (((String)(Temp.data)).equals(data[i])){
+                       Flg =true;
+                       break;
+                    }
+                }
+                if (Flg == true)
+                    continue;
+                else {
+                    out.println(Temp.data+""+printDelim+""+search((T)Temp.data));
+                    data[length++] = Temp.data.toString();
+                }
+            }
 	} // end of print()
 	
 } // end of class LinkedListMultiset
