@@ -17,14 +17,14 @@ public class LinkedListMultiset<T> extends Multiset<T>
         //When the node to be deleted is the first node.
         else if (Temp.prv == null)
             Temp.nxt.prv =null;
+        // When deleting anyother node in the linkedlist
         else{
             Temp.prv.nxt = Temp.nxt;
             Temp.nxt.prv = Temp.prv;
         }
     }
     //The structure of the linkedlist
-    private static class Node<T>
-    {
+    private static class Node<T>{
         protected T data;
         protected Node<T> nxt;
         protected Node<T> prv;
@@ -37,10 +37,8 @@ public class LinkedListMultiset<T> extends Multiset<T>
         }
     }
     Node Head;
-    private int Length;
 	public LinkedListMultiset() {
             Head = null;
-            Length = 0;
 	} // end of LinkedListMultiset()
 	        
 	public void add(T item) {
@@ -61,7 +59,8 @@ public class LinkedListMultiset<T> extends Multiset<T>
             for(;Temp != null;Temp = Temp.prv)
                 if (Temp.data.equals(item))
                     count++;
-		return count;
+            //System.out.println(count);
+            return count;
 	} // end of add()
 		
 	public void removeOne(T item) {
@@ -83,11 +82,24 @@ public class LinkedListMultiset<T> extends Multiset<T>
 	
 	public void print(PrintStream out) {
             Node Temp = Head;
-            //T[] aryTs = new T[10];
-            
+            String[] data = new String[50];
+            int length = 0;
+            Boolean Flg = false;//True if it exists in the array.//false if it does not exist in array
             for(;Temp != null;Temp = Temp.prv){
-                //put in array
-                out.println(Temp.data+""+printDelim+""+search((T)Temp.data));
+                Flg = false;
+                //check for item in array
+                for (int i=0;i<length;i++){
+                    if (((String)(Temp.data)).equals(data[i])){
+                       Flg =true;
+                       break;
+                    }
+                }
+                if (Flg == true)
+                    continue;
+                else {
+                    out.println(Temp.data+""+printDelim+""+search((T)Temp.data));
+                    data[length++] = Temp.data.toString();
+                }
             }
 	} // end of print()
 	
