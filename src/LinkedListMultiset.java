@@ -2,7 +2,10 @@ import java.io.PrintStream;
 
 public class LinkedListMultiset<T> extends Multiset<T>
 {
-
+    /*  
+        Will return the exact matching node when found
+        Will return empty node when no exect node is found    
+    */
     private Node find (T item){
         Node Temp = Head;
         for(;Temp != null;Temp = Temp.prv)
@@ -10,6 +13,9 @@ public class LinkedListMultiset<T> extends Multiset<T>
                     return Temp;
         return new Node(null, null, null);
     }
+    /*
+        will delete a perticular Node in a safe way if found in the list
+    */
     private void delete(Node Temp) {        
         // When the node to be deleted is the last node
         if (Temp == Head){
@@ -55,13 +61,15 @@ public class LinkedListMultiset<T> extends Multiset<T>
             if (Head==null)
                 Head = new Node(item, null, null);
             // If the Linklist already consist of data
-            Node T = find(item);
-            if (T.data!=null)
-                T.qnty++;
             else {
-                Node Temp = new Node(item, null, Head);
-                Head.nxt = Temp;
-                Head = Temp;
+                Node T = find(item);
+                if (T.data!=null)
+                    T.qnty++;
+                else {
+                    Node Temp = new Node(item, null, Head);
+                    Head.nxt = Temp;
+                    Head = Temp;
+                }
             }
 	} // end of add()
 		
