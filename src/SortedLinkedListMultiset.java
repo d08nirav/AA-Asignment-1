@@ -25,10 +25,12 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
     
     private static class Node<T>{
         protected T data;
+        protected int qnty;
         protected Node<T> nxt;
         protected Node<T> prv;
         protected Node (T data, Node<T> nxt, Node<T> prv)
         {
+            qnty =1;
             this.data = data;
             this.nxt = nxt;
             this.prv = prv;
