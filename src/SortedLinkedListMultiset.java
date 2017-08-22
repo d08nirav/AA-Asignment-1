@@ -123,24 +123,27 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
     public int search(T item) {	
             Node Temp = find(item);
             int count =0;
-            if ((Temp.data).equals(item))
-                count = Temp.qnty;
+            if (Temp.data !=null)
+                if ((Temp.data).equals(item))
+                    count = Temp.qnty;
             return count;
     } // end of add()
 
     public void removeOne(T item) {
             Node Temp = find(item);
-            if ((Temp.data).equals(item)){
-                if (Temp.qnty == 0)
-                    delete(Temp);
-                else
-                    Temp.qnty--;
-            }
+            if (Temp.data !=null)
+                if ((Temp.data).equals(item)){
+                    if (Temp.qnty == 0)
+                        delete(Temp);
+                    else
+                        Temp.qnty--;
+                }
     } // end of removeOne()
 
     public void removeAll(T item) {
             Node Temp = find(item);
-            if ((Temp.data).equals(item))
+            if (Temp.data !=null)
+                if ((Temp.data).equals(item))
                     delete(Temp);
     } // end of removeAll()
 
